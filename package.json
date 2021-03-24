@@ -15,6 +15,7 @@
     "@discordjs/opus": "github:discordjs/opus",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
-    "ffmpeg-static": "^4.2.8"
+    "ffmpeg-static": "^4.2.8",
+    "say": "^0.16.0"
   }
 }
