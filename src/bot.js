@@ -3,6 +3,16 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+/* TODO:
+* [x] Make bot leave when audio is done playing
+* [] Implement TTS API to play the user's name
+* [] Implement custom audio for each user
+    - Use say.js to generate TTS audio file
+  [] Think of what to do when multiple users join at the same time
+  [] Maybe put a sleep on the bot if the same user keeps joining and leaving
+  [] 
+*/
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 })
@@ -15,10 +25,19 @@ client.on("voiceStateUpdate", (oldState, newState) => {
     //console.log(oldState.channelID === null && newState.channelID)
     // Someone joined the call
     if(oldState.channelID === null && newState.channelID){
-        console.log(newState.member);
+        var voiceChannel = newState.channel;
         // We want the bot to join the call now
-        newState.channel.join()
-            .then(connection => console.log(`The bot joined the ${newState.channel.name} channel`))
+        voiceChannel.join()
+            .then(connection => {
+                console.log(`The bot joined the ${connection.channel.name} channel`);
+                //console.log(connection);
+                connection.play('johncenaintro.mp3', {volume: 0.5}).on('speaking', (value) => {
+                    // Make bot leave when the audio is done
+                    if(value === 0){
+                        voiceChannel.leave();
+                    }
+                });
+            })
             .catch(console.error);
         //console.log(newState.channel);
     }
