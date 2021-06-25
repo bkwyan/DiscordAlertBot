@@ -13,6 +13,7 @@ const https = require('https');
     - Use say.js to generate TTS audio file
   [x] Fix when user switches voice channel
   [x] Fix mute bug
+  [] Fix stream bug
   [] Fix sleep channel
 * [] Implement custom audio for each user
   [] Think of what to do when multiple users join at the same time
